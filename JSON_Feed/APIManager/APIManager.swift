@@ -27,7 +27,6 @@ class APIManager {
                 if let aDutf8 = dutf8 {
                     serializedResponse = try? JSONSerialization.jsonObject(with: aDutf8, options: .mutableContainers)
                 }
-                print(serializedResponse)
                 let feedResponse: Feed? = Feed(dictionary: serializedResponse as! [AnyHashable : Any])
                 completion(feedResponse, nil)
             }
@@ -36,5 +35,28 @@ class APIManager {
         task.resume()
     }
     
+    class func downLoadImageFor(item: Item?, withCallBack completion: @escaping (Item, Error) -> Void) {
+        if item?.imageHref != nil {
+            var request: URLRequest? = nil
+            if let aHref = URL(string: (item?.imageHref)!) {
+                request = URLRequest(url: aHref)
+            }
+//            if let aRequest = request {
+//                NSURLConnection.sendAsynchronousRequest(aRequest, queue: OperationQueue.main, completionHandler: { response, data, error in
+//                    if error != nil {
+//                        completion(nil, error)
+//                    } else {
+//                         downloadedImage: UIImage?
+//                        if let _ = data {
+//                            var downloadedImage = UIImage(data: aData)
+//                        }
+//                        item.feedImage = downloadedImage
+//                        completion(item!, nil)
+//                    }
+//                })
+//            }
+        }
+
+    }
 
 }
