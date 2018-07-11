@@ -61,24 +61,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if let feedItem: Item = feedResponse?.rows[indexPath!.row] {
                 if feedItem.feedImage == nil {
                     self.backgroundQueue?.addOperation({
-//                        APIManager.downLoadImage(for: feedItem, withCallBack: { feeditem, error in
-//                            OperationQueue.main.addOperation({
-//                                var cell: CustomTableViewCell? = nil
-//                                if let anItem = feedItem {
-//                                    cell = self.feedTableView.cellForRow(at: IndexPath(row: self.feedResponse.rows.index(of: anItem), section: 0)) as? CustomTableViewCell
-//                                }
-//                                if cell != nil {
-//                                    cell?.descriptionImageView.image = feedItem?.feedImage
-//                                    cell?.removeLoaderView()
-//                                }
-//                            })
-//                        })
+                        APIManager.downLoadImage(item: feedItem, withCallBack: { (responseFeedItem:Item?, error:Error?) in
+                            OperationQueue.main.addOperation({
+                                var cell: CustomTableViewCell? = nil
+                                if responseFeedItem != nil {
+                                    let rowIndex = self.getItemIndex(from: (self.feedResponse?.rows)!, itemObj: feedItem)
+                                    cell = self.feedTableView.cellForRow(at: IndexPath(row: rowIndex!, section: 0)) as? CustomTableViewCell
+                                    if cell != nil {
+                                        cell?.descriptionImageView?.image = feedItem.feedImage
+                                        cell?.removeLoaderView()
+                                    }
+                                }
+                            })
+                        })
                     })
                 }
             }
         }
     }
 
+    func getItemIndex(from: [Item], itemObj: Item) -> Int? {
+        return from.index(where: { $0 === itemObj })
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let _ = self.feedResponse?.rows {

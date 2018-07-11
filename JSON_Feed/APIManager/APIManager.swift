@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class APIManager {
     class func getFeedRequest(withCompletion completion: @escaping (_ feedResponse: Feed?, _ error: Error?) -> Void) {
@@ -35,28 +36,27 @@ class APIManager {
         task.resume()
     }
     
-    class func downLoadImageFor(item: Item?, withCallBack completion: @escaping (Item, Error) -> Void) {
+    class func downLoadImage(item: Item?, withCallBack completion: @escaping (Item?, Error?) -> Void) {
         if item?.imageHref != nil {
             var request: URLRequest? = nil
             if let aHref = URL(string: (item?.imageHref)!) {
                 request = URLRequest(url: aHref)
             }
-//            if let aRequest = request {
-//                NSURLConnection.sendAsynchronousRequest(aRequest, queue: OperationQueue.main, completionHandler: { response, data, error in
-//                    if error != nil {
-//                        completion(nil, error)
-//                    } else {
-//                         downloadedImage: UIImage?
-//                        if let _ = data {
-//                            var downloadedImage = UIImage(data: aData)
-//                        }
-//                        item.feedImage = downloadedImage
-//                        completion(item!, nil)
-//                    }
-//                })
-//            }
+            if let aRequest = request {
+                NSURLConnection.sendAsynchronousRequest(aRequest, queue: OperationQueue.main, completionHandler: { response, data, error in
+                    if error != nil {
+                        completion(nil, error)
+                    } else {
+                        var downloadedImage: UIImage?
+                        if let aData = data {
+                            downloadedImage = UIImage(data: aData)
+                        }
+                        item?.feedImage = downloadedImage
+                        completion(item!, nil)
+                    }
+                })
+            }
         }
-
     }
 
 }

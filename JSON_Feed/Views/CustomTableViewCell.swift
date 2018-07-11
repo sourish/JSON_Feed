@@ -22,24 +22,46 @@ class CustomTableViewCell: UITableViewCell {
         descriptionImageView?.layer.cornerRadius = 30
         descriptionImageView?.clipsToBounds = true
         descriptionImageView?.layer.masksToBounds = true
-//        descriptionImageView?.backgroundColor = UIColor.lightGray().cg
+        descriptionImageView?.backgroundColor = UIColor.lightGray
 
         activityIndicator?.hidesWhenStopped = true
         contentView.addSubview(titleNameLbl!)
         contentView.addSubview(descriptionNameLbl!)
         contentView.addSubview(descriptionImageView!)
         descriptionImageView?.addSubview(activityIndicator!)
-
+        
+        titleNameLbl?.translatesAutoresizingMaskIntoConstraints = false
+        descriptionNameLbl?.translatesAutoresizingMaskIntoConstraints = false
+        descriptionImageView?.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator?.translatesAutoresizingMaskIntoConstraints = false
+        
+        descriptionImageView?.contentMode = .scaleToFill
+        descriptionImageView?.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
+        descriptionImageView?.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        descriptionImageView?.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        descriptionImageView?.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 0).isActive = true
+        
+        titleNameLbl?.heightAnchor.constraint(greaterThanOrEqualToConstant: 30).isActive = true
+        titleNameLbl?.leadingAnchor.constraint(equalTo: descriptionImageView!.trailingAnchor, constant: 10).isActive = true
+        titleNameLbl?.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
+        titleNameLbl?.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        
+        descriptionNameLbl?.topAnchor.constraint(equalTo: titleNameLbl!.bottomAnchor, constant: 5).isActive = true
+        descriptionNameLbl?.heightAnchor.constraint(greaterThanOrEqualToConstant: 30).isActive = true
+        descriptionNameLbl?.leadingAnchor.constraint(equalTo: titleNameLbl!.leadingAnchor, constant: 0).isActive = true
+        descriptionNameLbl?.trailingAnchor.constraint(equalTo: titleNameLbl!.trailingAnchor, constant: 0).isActive = true
+        descriptionNameLbl?.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        
+        activityIndicator?.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        activityIndicator?.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        activityIndicator?.centerYAnchor.constraint(equalTo: (descriptionImageView?.centerYAnchor)!, constant: 0).isActive = true
+        activityIndicator?.centerXAnchor.constraint(equalTo: (descriptionImageView?.centerXAnchor)!, constant: 0).isActive = true
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    convenience init() {
-//        self.init()
-//    }
-//    
 //    func init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 //
 //        
@@ -56,28 +78,6 @@ class CustomTableViewCell: UITableViewCell {
 //        contentView.addSubview(descriptionImageView)
 //        descriptionImageView.addSubview(activityIndicator)
 
-    //        titleNameLbl.translatesAutoresizingMaskIntoConstraints = false
-//        descriptionNameLbl.translatesAutoresizingMaskIntoConstraints = false
-//        descriptionImageView.translatesAutoresizingMaskIntoConstraints = false
-//        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-//        descriptionImageView.contentMode = .scaleToFill
-//        descriptionImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-//        descriptionImageView.widthAnchor.constraint(equalToConstant: 60).isActive = true
-//        descriptionImageView.heightAnchor.constraint(equalToConstant: 60).isActive = true
-//        descriptionImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 0).isActive = true
-//        titleNameLbl.heightAnchor.constraint(greaterThanOrEqualToConstant: 30).isActive = true
-//        titleNameLbl.leadingAnchor.constraint(equalTo: descriptionImageView.trailingAnchor, constant: 10).isActive = true
-//        titleNameLbl.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
-//        titleNameLbl.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-//        descriptionNameLbl.topAnchor.constraint(equalTo: titleNameLbl.bottomAnchor, constant: 5).isActive = true
-//        descriptionNameLbl.heightAnchor.constraint(greaterThanOrEqualToConstant: 30).isActive = true
-//        descriptionNameLbl.leadingAnchor.constraint(equalTo: titleNameLbl.leadingAnchor, constant: 0).isActive = true
-//        descriptionNameLbl.trailingAnchor.constraint(equalTo: titleNameLbl.trailingAnchor, constant: 0).isActive = true
-//        descriptionNameLbl.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-//        activityIndicator.widthAnchor.constraint(equalToConstant: 30).isActive = true
-//        activityIndicator.heightAnchor.constraint(equalToConstant: 30).isActive = true
-//        activityIndicator.centerYAnchor.constraint(equalTo: descriptionImageView.centerYAnchor, constant: 0).isActive = true
-//        activityIndicator.centerXAnchor.constraint(equalTo: descriptionImageView.centerXAnchor, constant: 0).isActive = true
 //    }
     
     func showLoaderView() {
