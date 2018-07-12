@@ -42,14 +42,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         APIManager.getFeedRequest(withCompletion: { response, error in
             self.feedResponse = response
-            print("response \(self.feedResponse)")
+            print("response \(String(describing: self.feedResponse))")
             OperationQueue.main.addOperation({
                 if let _ = self.feedResponse?.title {
                     self.title = self.feedResponse?.title
                 }
-//                downloadAssests()
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 self.feedTableView.reloadData()
+                self.downloadAssests()
             })
         })
 

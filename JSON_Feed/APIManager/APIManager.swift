@@ -32,7 +32,6 @@ class APIManager {
                 completion(feedResponse, nil)
             }
         }
-        
         task.resume()
     }
     
@@ -42,21 +41,25 @@ class APIManager {
             if let aHref = URL(string: (item?.imageHref)!) {
                 request = URLRequest(url: aHref)
             }
-            if let aRequest = request {
-                NSURLConnection.sendAsynchronousRequest(aRequest, queue: OperationQueue.main, completionHandler: { response, data, error in
+            
+            if let _ = request, let aHref = URL(string: (item?.imageHref)!) {
+                URLSession.shared.dataTask(with: aHref) { (data, response, error) in
                     if error != nil {
+                        print("item: \(String(describing: item?.title)) error: \(String(describing: error?.localizedDescription))")
                         completion(nil, error)
-                    } else {
+                    }
+                    else {
                         var downloadedImage: UIImage?
                         if let aData = data {
+                            print("data\(String(describing: data))")
                             downloadedImage = UIImage(data: aData)
                         }
                         item?.feedImage = downloadedImage
                         completion(item!, nil)
                     }
-                })
+                    }.resume()
             }
         }
     }
-
+    
 }
