@@ -68,6 +68,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                     let rowIndex = self.getItemIndex(from: (self.feedResponse?.rows)!, itemObj: feedItem)
                                     cell = self.feedTableView.cellForRow(at: IndexPath(row: rowIndex!, section: 0)) as? CustomTableViewCell
                                     if cell != nil {
+                                        cell?.descriptionImageView?.image = nil
                                         cell?.descriptionImageView?.image = feedItem.feedImage
                                         cell?.removeLoaderView()
                                     }
@@ -96,14 +97,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? CustomTableViewCell
         cell?.isHidden = false
         if let feedItem = self.feedResponse?.rows[indexPath.row] {
-            print(feedItem.title)
-            cell?.titleNameLbl?.text = feedItem.title
-            cell?.descriptionNameLbl?.text = feedItem.descriptionField
             cell?.titleNameLbl?.numberOfLines = 0
+            cell?.titleNameLbl?.text = feedItem.title
+            
             cell?.descriptionNameLbl?.numberOfLines = 0
+            cell?.descriptionNameLbl?.text = feedItem.descriptionField
+            
+            
             cell?.selectionStyle = .none
             if feedItem.feedImage != nil {
-                
+                cell?.removeLoaderView()
+            }
+            else {
+                cell?.showLoaderView()
             }
         }
         return cell!

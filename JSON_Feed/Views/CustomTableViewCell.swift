@@ -62,27 +62,11 @@ class CustomTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    func init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-//
-//        
-//        descriptionNameLbl?.textColor = UIColor.lightGray
-//        descriptionImageView?.layer.cornerRadius = 30
-//        descriptionImageView.clipsToBounds = true
-//        descriptionImageView.layer.masksToBounds = true
-//        descriptionImageView.backgroundColor = CGColor?(rawValue: UIColor.lightGray.rawValue)
-
-    
-//            activityIndicator.hidesWhenStopped = true
-//        contentView.addSubview(titleNameLbl!)
-//        contentView.addSubview(descriptionNameLbl)
-//        contentView.addSubview(descriptionImageView)
-//        descriptionImageView.addSubview(activityIndicator)
-
-//    }
-    
     func showLoaderView() {
+        activityIndicator?.startAnimating()
     }
     
     func removeLoaderView() {
+        activityIndicator?.stopAnimating()
     }
 }
