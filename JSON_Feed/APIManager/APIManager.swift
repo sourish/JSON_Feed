@@ -8,9 +8,13 @@
 
 import Foundation
 import UIKit
-
+import Reachability
 class APIManager {
+    
+    let reachability = Reachability()
+    
     class func getFeedRequest(withCompletion completion: @escaping (_ feedResponse: Feed?, _ error: Error?) -> Void) {
+        
         let url = URL(string: "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json")
         let request = URLRequest(url: url!)
         let urlSession = URLSession.shared
