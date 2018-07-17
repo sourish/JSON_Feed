@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import Reachability
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var feedTableView: UITableView!
     var feedResponse: Feed?
     var backgroundQueue: OperationQueue?
+    let reachability = Reachability()!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +22,42 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         downloadFeeds()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        reachability.whenReachable = { reachability in
+            if reachability.connection == .wifi {
+                print("Reachable via WiFi")
+            } else {
+                print("Reachable via Cellular")
+            }
+        }
+        reachability.whenUnreachable = { _ in
+            print("Not reachable")
+        }
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(note:)), name: .reachabilityChanged, object: reachability)
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        reachability.stopNotifier()
+        NotificationCenter.default.removeObserver(self, name: .reachabilityChanged, object: reachability)
+    }
+
+    @objc func reachabilityChanged(note: Notification) {
+        let reachability = note.object as! Reachability
+        switch reachability.connection {
+        case .wifi:
+            print("Reachable via WiFi")
+        case .cellular:
+            print("Reachable via Cellular")
+        case .none:
+            print("Network not reachable")
+        }
+    }
+    
     func intializeViews() {
         feedTableView = UITableView(frame: CGRect.zero, style: .plain)
         feedTableView.dataSource = self
