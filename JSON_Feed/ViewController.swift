@@ -17,6 +17,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let reachability = Reachability()!
     fileprivate let imageDownloadsInProgress = NSMutableDictionary()
     
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:#selector(ViewController.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor.red
+        
+        return refreshControl
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         intializeViews()
@@ -47,6 +56,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         NotificationCenter.default.removeObserver(self, name: .reachabilityChanged, object: reachability)
     }
 
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        downloadFeeds()
+        refreshControl.endRefreshing()
+    }
+    
     @objc func reachabilityChanged(note: Notification) {
         let reachability = note.object as! Reachability
         switch reachability.connection {
@@ -73,6 +87,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         feedTableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
         feedTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
 
+        feedTableView.addSubview(self.refreshControl)
         self.backgroundQueue = OperationQueue()
     }
     
@@ -85,7 +100,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     self.title = self.feedResponse?.title
                 }
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                self.feedTableView.reloadData()
                 self.downloadAssests()
             })
         })
@@ -101,10 +115,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             }
         }
+        feedTableView.reloadData()
     }
 
     //MARK: Download Image
-    
     func startImageDownload(imageCellData:Item, atIndex index:Int) {
         var imageDownloader = self.imageDownloadsInProgress[index] as? ImageDownloader
         if (imageCellData.imageHref.count > 0) {
