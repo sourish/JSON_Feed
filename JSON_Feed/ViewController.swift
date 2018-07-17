@@ -15,6 +15,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var feedResponse: Feed?
     var backgroundQueue: OperationQueue?
     let reachability = Reachability()!
+    fileprivate let imageDownloadsInProgress = NSMutableDictionary()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,11 +77,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func downloadFeeds() {
-        print ("download")
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         APIManager.getFeedRequest(withCompletion: { response, error in
             self.feedResponse = response
-            print("response \(String(describing: self.feedResponse))")
             OperationQueue.main.addOperation({
                 if let _ = self.feedResponse?.title {
                     self.title = self.feedResponse?.title
@@ -95,30 +94,38 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     func downloadAssests() {
         let visibleIndexPaths = feedTableView.indexPathsForVisibleRows
-        for indexPath: IndexPath? in visibleIndexPaths ?? [IndexPath?]() {
-            if let feedItem: Item = feedResponse?.rows[indexPath!.row] {
+        for indexPath in visibleIndexPaths! {
+            if let feedItem: Item = feedResponse?.rows[indexPath.row] {
                 if feedItem.feedImage == nil {
-                    self.backgroundQueue?.addOperation({
-                        APIManager.downLoadImage(item: feedItem, withCallBack: { (responseFeedItem:Item?, error:Error?) in
-                            OperationQueue.main.addOperation({
-                                var cell: CustomTableViewCell? = nil
-                                if responseFeedItem != nil {
-                                    let rowIndex = self.getItemIndex(from: (self.feedResponse?.rows)!, itemObj: feedItem)
-                                    cell = self.feedTableView.cellForRow(at: IndexPath(row: rowIndex!, section: 0)) as? CustomTableViewCell
-                                    if cell != nil {
-                                        cell?.descriptionImageView?.image = nil
-                                        cell?.descriptionImageView?.image = feedItem.feedImage
-                                        cell?.removeLoaderView()
-                                    }
-                                }
-                            })
-                        })
-                    })
+                    startImageDownload(imageCellData: feedItem, atIndex: indexPath.section)
                 }
             }
         }
     }
 
+    //MARK: Download Image
+    
+    func startImageDownload(imageCellData:Item, atIndex index:Int) {
+        var imageDownloader = self.imageDownloadsInProgress[index] as? ImageDownloader
+        if (imageCellData.imageHref.count > 0) {
+            if imageDownloader == nil, let imageURL = URL(string: imageCellData.imageHref.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) {
+                imageDownloader = ImageDownloader(imageURL: imageURL, completionBlock: { (image:UIImage?) in
+                    if image != nil {
+                        imageCellData.feedImage = image
+                    }
+                    self.imageDownloadsInProgress.removeObject(forKey: index)
+                    if self.imageDownloadsInProgress.count == 0 {
+                        OperationQueue.main.addOperation {
+                            self.feedTableView.reloadData()
+                        }
+                    }
+                })
+                imageDownloader?.startDownload()
+                self.imageDownloadsInProgress[index] = imageDownloader
+            }
+        }
+    }
+    
     func getItemIndex(from: [Item], itemObj: Item) -> Int? {
         return from.index(where: { $0 === itemObj })
     }
@@ -144,16 +151,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             cell?.selectionStyle = .none
             if feedItem.feedImage != nil {
-                cell?.removeLoaderView()
+                cell?.descriptionImageView?.image = feedItem.feedImage
+                cell?.activityIndicator?.stopAnimating()
             }
             else {
-                cell?.showLoaderView()
+                if ((feedItem.imageHref.isEmpty) || (feedItem.imageHref.count == 0)) {
+                    cell?.activityIndicator?.stopAnimating()
+                }
+                cell?.descriptionImageView?.image = nil
+                cell?.activityIndicator?.startAnimating()
             }
         }
         return cell!
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if !scrollView.isDecelerating {
+            downloadAssests()
+        }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         downloadAssests()
     }
 }

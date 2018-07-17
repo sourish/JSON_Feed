@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JSON_Feed/ViewController.swift"
-            timestampString = "553486386.7742161"
+            timestampString = "553488310.2801321"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
             landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JSON_Feed/ViewController.swift"
-            timestampString = "553486386.7747869"
+            timestampString = "553488310.280669"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,12 +106,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JSON_Feed/ViewController.swift"
-            timestampString = "553486386.775074"
+            timestampString = "553488310.281022"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
-            landmarkName = "scrollViewDidEndDecelerating(_:)"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "scrollViewDidEndDragging(_:willDecelerate:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -122,75 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JSON_Feed/ViewController.swift"
-            timestampString = "553486386.775342"
+            timestampString = "553488310.281361"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
-            landmarkName = "downloadAssests()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JSON_Feed/ViewController.swift"
-            timestampString = "553486386.7756"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "downloadAssests()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in JSON_Feed.ViewController.downloadAssests() -&gt; ()"
-                  moduleName = "JSON_Feed"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Sourish/Desktop/JSON_Feed/JSON_Feed/ViewController.swift"
-                  timestampString = "553486416.059492"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "102"
-                  endingLineNumber = "102"
-                  offsetFromSymbolStart = "18">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;JSON_Feed.Item&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 () -&gt; () in JSON_Feed.ViewController.downloadAssests() -&gt; ()"
-                  moduleName = "JSON_Feed"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Sourish/Desktop/JSON_Feed/JSON_Feed/ViewController.swift"
-                  timestampString = "553486416.0628901"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "103"
-                  endingLineNumber = "103"
-                  offsetFromSymbolStart = "27">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JSON_Feed/ViewController.swift"
-            timestampString = "553486386.775856"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
             landmarkName = "downloadAssests()"
             landmarkType = "7">
          </BreakpointContent>
@@ -202,7 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JSON_Feed/APIManager/APIManager.swift"
-            timestampString = "553138548.5753911"
+            timestampString = "553488310.281691"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "39"
@@ -218,7 +154,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JSON_Feed/APIManager/APIManager.swift"
-            timestampString = "553138548.575457"
+            timestampString = "553488310.2820441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "45"
@@ -266,7 +202,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JSON_Feed/APIManager/APIManager.swift"
-            timestampString = "553138548.575518"
+            timestampString = "553488310.282349"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "47"
@@ -282,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JSON_Feed/APIManager/APIManager.swift"
-            timestampString = "553138548.575579"
+            timestampString = "553488310.2826411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
             landmarkName = "downLoadImage(item:withCallBack:)"
             landmarkType = "7">
          </BreakpointContent>
